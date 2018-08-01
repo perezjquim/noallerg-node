@@ -7,7 +7,6 @@ const basicAuth = require('express-basic-auth');
 const db = require('./database/database');
 
 db.init();
-
 app.use(basicAuth({
     users: db.getUsers(),
     challenge: true // <--- needed to actually show the login dialog!

@@ -1,5 +1,4 @@
 /node_modules
 /database/database.db
 .openode
-certificate.crt
-privateKey.key
+/certs

@@ -5,8 +5,10 @@ const app = express();
 const router = require('./router');
 const basicAuth = require('express-basic-auth');
 const db = require('./database/database');
+const cors = require('cors')
 
 db.init();
+app.use(cors());
 app.use(basicAuth({
     users: db.getUsers(),
     challenge: true // <--- needed to actually show the login dialog!
@@ -35,11 +37,6 @@ app.use(function(err, req, res, next) {
     html+= '  </body>';
     html+= '</html>';
     res.send(html);
-}); 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
 });
 
 module.exports = app;

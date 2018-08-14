@@ -1,23 +1,25 @@
 #!/usr/bin/env node
 
+const fs = require('fs');
 const app = require('./app');
 const http = require('http');
 const https = require('https');
-
-const HTTP_PORT = 80;
-const HTTPS_PORT = 443;
-
-const fs = require('fs');
-const creds = 
+const PORT_HTTP = 80;
+const PORT_HTTPS = 443;
+const options = 
 {
-	key: fs.readFileSync('certs/server-key.pem'),
-  cert: fs.readFileSync('certs/server-crt.pem'), 
-  ca: fs.readFileSync('certs/ca-crt.pem')
+  key: fs.readFileSync('certificates/server.key'),
+  cert: fs.readFileSync('certificates/server.crt')
 };
 
-//app.set('port', port);
+const server_http = http.createServer(app);
+server_http.listen(PORT_HTTP,(err) =>
+{
+	if(!err) console.log("started listening on HTTP");
+});
 
-const sHttp = http.createServer(app);
-const sHttps = https.createServer(creds,app);
-sHttp.listen(HTTP_PORT);
-sHttps.listen(HTTPS_PORT);
+const server_https = https.createServer(app);
+server_https.listen(PORT_HTTPS,(err) =>
+{
+	if(!err) console.log("started listening on HTTPS");
+});

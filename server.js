@@ -13,13 +13,13 @@ const options =
 };
 
 const server_http = http.createServer(app);
-server_http.listen(PORT_HTTP,(err) =>
+server_http.listen(process.env.PORT || PORT_HTTP,(err) =>
 {
 	if(!err) console.log("started listening on HTTP");
 });
 
 const server_https = https.createServer(app);
-server_https.listen(PORT_HTTPS,(err) =>
+server_https.listen(process.env.PORT || PORT_HTTPS,(err) =>
 {
 	if(!err) console.log("started listening on HTTPS");
 });

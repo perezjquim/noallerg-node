@@ -4,7 +4,7 @@ const db = require('./database/database');
 
 router.get('/markers', function (req, res) 
 {
-	return res.json(db.query("SELECT * FROM Marker"));
+	return res.json(db.getMarkers());
 });
 
 module.exports = router;
